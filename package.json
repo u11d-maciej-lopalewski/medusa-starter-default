@@ -13,9 +13,10 @@
     "medusa"
   ],
   "scripts": {
-    "build": "medusa build",
+    "postbuild": "cp -r src/data .medusa/server/src/data && cd .medusa/server && yarn install",
+    "build": "medusa build && npm run postbuild",
     "seed": "medusa exec ./src/scripts/seed.ts",
-    "start": "medusa db:migrate && medusa start",
+    "start": "cd .medusa/server && medusa db:migrate && medusa start",
     "dev": "medusa develop",
     "test:integration:http": "TEST_TYPE=integration:http NODE_OPTIONS=--experimental-vm-modules jest --silent=false --runInBand --forceExit",
     "test:integration:modules": "TEST_TYPE=integration:modules NODE_OPTIONS=--experimental-vm-modules jest --silent=false --runInBand --forceExit",
